@@ -1,0 +1,87 @@
+<template>
+    <div class="expenses-item-wrap">
+        <span class="item item-comment">{{item.comment}}</span>
+        <span class="item item-value" :class="colorClass">{{item.value}}</span>
+        <i :class="iconClass"></i>
+        <ElButton type="primary" icon="el-icon-edit" circle @click="editItem(item)"></ElButton>
+        <ElButton type="danger" icon="el-icon-delete" circle @click="deleteItem(item.id)"></ElButton>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "ExpensesItem",
+        props: {
+            item: {
+                type: Object,
+                default: () => ({}),
+            }
+        },
+        computed: {
+          colorClass() {
+              if(this.item.value > 0) {
+                  return "green";
+              } else if (this.item.value < 0) {
+                  return "red";
+              } else {
+                  return "";
+              }
+          },
+          iconClass() {
+              if(this.item.value > 0) {
+                  return "el-icon-top green";
+              } else if (this.item.value < 0) {
+                  return "el-icon-bottom red";
+              } else {
+                  return "el-icon-minus";
+              }
+          }
+        },
+
+        methods: {
+            deleteItem(id) {
+                this.$emit('deleteItem', id);
+            },
+            editItem(item) {
+                this.$emit('editItem', item);
+            }
+        }
+    }
+
+</script>
+
+<style scoped>
+    .expenses-item-wrap {
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+
+    }
+
+    .item {
+        color: #808080;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-weight: 400;
+    }
+
+    .item-comment {
+        margin-right: auto;
+    }
+
+    .item-value {
+        margin-right: 20px;
+    }
+
+    i {
+        margin: 0 10px 0 0;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+
+</style>

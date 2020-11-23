@@ -9,7 +9,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { mapActions } from 'vuex';
-import Expenses from "./components/Exepenses";
+import Expenses from "./components/Expenses";
 import BudgetTotal from "./components/BudgetTotal";
 import FormExpenses from "./components/FormExpenses";
 
