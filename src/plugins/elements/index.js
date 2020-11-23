@@ -13,6 +13,9 @@ import {
   Alert,
   Dialog,
   Icon,
+  Col,
+  Row,
+  DatePicker
 } from 'element-ui';
 
 const elements = [
@@ -26,6 +29,9 @@ const elements = [
   Alert,
   Dialog,
   Icon,
+  Col,
+  Row,
+  DatePicker
 ];
 
 locale.use(lang);

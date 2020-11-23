@@ -50,10 +50,12 @@ const expensesStore = {
   },
 
   getters: {
+
     expensesAll: ({ expensesList }) => Object.values(expensesList),
     expensesIn: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value > 0),
     expensesOut: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value < 0),
     expensesWP: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value === 0),
+
     totalBudget: ({ expensesList }) => Object.values(expensesList).reduce((acc, item) => acc + item.value, 0),
     totalProfit: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value > 0).reduce((acc, item) => acc + item.value, 0),
     totalExpenses: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value < 0).reduce((acc, item) => acc + item.value, 0),

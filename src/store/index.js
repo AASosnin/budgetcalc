@@ -10,9 +10,6 @@ const expensesState = createPersistedState({
 });
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
   modules: {
     expensesStore
   },
