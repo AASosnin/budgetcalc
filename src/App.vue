@@ -5,21 +5,23 @@
         <InputExpenses></InputExpenses>
       </div>
       <div class="expenses-col">
-        <BudgetTotal />
-        <Expenses></Expenses>
+        <BudgetFilteres />
       </div>
+    </div>
+    <div class="expenses-row">
+      <Expenses></Expenses>
     </div>
   </div>
 </template>
 
 <script>
 import Expenses from "./components/Expenses";
-import BudgetTotal from "./components/BudgetTotal";
 import InputExpenses from "./components/InputExpenses";
+import BudgetFilteres from "./components/BudgetFilteres";
 
 export default {
   name: 'App',
-  components: {InputExpenses, BudgetTotal, Expenses},
+  components: {BudgetFilteres, InputExpenses, Expenses},
 }
 </script>
 

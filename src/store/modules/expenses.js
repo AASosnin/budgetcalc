@@ -18,7 +18,7 @@ const expensesStore = {
         value: -50,
         comment: "Some expense",
         type: "outcome",
-        date: new Date(2020, 10, 3)
+        date: new Date(2021, 11, 3)
       },
 
       3: {
@@ -26,7 +26,7 @@ const expensesStore = {
         value: -50,
         comment: "Some expense",
         type: "outcome",
-        date: new Date(2020, 10, 6)
+        date: new Date(2021, 10, 6)
       },
 
       4: {
@@ -50,12 +50,15 @@ const expensesStore = {
         value: 50,
         comment: "Some expense",
         type: "income",
-        date: new Date(2019, 10, 2)
+        date: new Date(2021, 10, 2)
       },
     }
   },
 
   getters: {
+    expensesAllYear: ({expensesList}) => year => Object.values(expensesList).filter(item => new Date(item.date).getFullYear() === year).sort((a,b) => new Date(a.date) - new Date(b.date)),
+
+    expensesAllYearMonth: ({expensesList}) => ym => Object.values(expensesList).filter(item => (new Date(item.date).getFullYear() === ym.selectedYear && new Date(item.date).getMonth() === ym.selectedMonth)).sort((a,b) => new Date(a.date) - new Date(b.date)),
 
     expensesAll: ({ expensesList }) => Object.values(expensesList).sort((a,b) => new Date(a.date) - new Date(b.date)),
     expensesIn: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value > 0).sort((a,b) => new Date(a.date) - new Date(b.date)),

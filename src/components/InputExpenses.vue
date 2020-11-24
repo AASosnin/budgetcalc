@@ -19,7 +19,7 @@
 
 <style>
   .form-expenses-wrap {
-    max-width: 400px;
+    width: 400px;
     min-width: 300px;
     margin: 20px;
   }

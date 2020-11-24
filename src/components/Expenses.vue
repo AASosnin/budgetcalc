@@ -59,12 +59,14 @@
   import ExpensesItem from '@/components/ExpensesItem'
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
+  import { bus } from '../main'
 
   export default {
     name: 'Expenses',
     components: {
       ExpensesItem,
     },
+
     data() {
 
       var validateValue = (rule, value, callback) => {
@@ -79,8 +81,10 @@
         filterInOut: "all",
         delDialogVisible: false,
         delId: "",
-        // yearNow: 2019,
-        // monthNow: 0,
+        selectedDate: {
+          selectedYear: "",
+          selectedMonth: "",
+        },
         editDialogVisible: false,
         editItemForm: {
           type: "",
@@ -106,23 +110,44 @@
         }
       }
     },
+
+    created() {
+      bus.$on("onSelectYear", year => this.selectedDate.selectedYear = year);
+      bus.$on("onSelectMonth", month => this.selectedDate.selectedMonth = month);
+    },
+
     computed: {
-      ...mapGetters('expensesStore', ['expensesAll', 'expensesIn', 'expensesOut', 'expensesWP']),
+      ...mapGetters('expensesStore', [
+        'expensesAll',
+        'expensesIn',
+        'expensesOut',
+        'expensesWP',
+        'expensesAllYear',
+        'expensesAllYearMonth'
+      ]),
 
       isEmptyExpenses() {
         return Object.keys(this.filteredExpenses).length;
       },
 
       filteredExpenses() {
-        if(this.filterInOut === 'all') {
-          return this.expensesAll;
-        } else if (this.filterInOut === 'income') {
-          return this.expensesIn;
-        } else if (this.filterInOut === 'outcome') {
-          return this.expensesOut;
-        } else return this.expensesWP;
+        if (this.selectedDate.selectedYear && this.selectedDate.selectedMonth) {
+          return this.expensesAllYearMonth(this.selectedDate)
+        }
+        if (this.selectedDate.selectedYear) {
+          return this.expensesAllYear(this.selectedDate.selectedYear)
+        } else {
+          if(this.filterInOut === 'all') {
+            return this.expensesAll;
+          } else if (this.filterInOut === 'income') {
+            return this.expensesIn;
+          } else if (this.filterInOut === 'outcome') {
+            return this.expensesOut;
+          } else return this.expensesWP;
+        }
       },
     },
+
     methods: {
       ...mapActions('expensesStore', ['deleteItem', 'editItem']),
 
@@ -164,7 +189,7 @@
 
 <style scoped>
   .expenses-wrap {
-    max-width: 700px;
+    width: 60%;
     min-width: 500px;
     margin: 20px;
   }
