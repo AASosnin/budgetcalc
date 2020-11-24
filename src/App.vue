@@ -1,27 +1,25 @@
 <template>
   <div id="app">
-    <FormExpenses @onFormSubmit="addNewItem"></FormExpenses>
-    <BudgetTotal />
-    <Expenses></Expenses>
+    <div class="expenses-row">
+      <div class="expenses-col">
+        <InputExpenses></InputExpenses>
+      </div>
+      <div class="expenses-col">
+        <BudgetTotal />
+        <Expenses></Expenses>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { mapActions } from 'vuex';
 import Expenses from "./components/Expenses";
 import BudgetTotal from "./components/BudgetTotal";
-import FormExpenses from "./components/FormExpenses";
+import InputExpenses from "./components/InputExpenses";
 
 export default {
   name: 'App',
-  components: {FormExpenses, BudgetTotal, Expenses},
-  computed: {
-    ...mapGetters('expensesStore', ['expensesAll']),
-  },
-  methods: {
-    ...mapActions('expensesStore', ['addNewItem']),
-  }
+  components: {InputExpenses, BudgetTotal, Expenses},
 }
 </script>
 
@@ -33,5 +31,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 60px;
+}
+
+.expenses-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 </style>

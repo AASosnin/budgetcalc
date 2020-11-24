@@ -9,52 +9,58 @@ const expensesStore = {
         id: 1,
         value: 100,
         comment: "Some earnings",
-        type: "income"
+        type: "income",
+        date: new Date(2020, 10, 3)
       },
 
       2: {
         id: 2,
         value: -50,
         comment: "Some expense",
-        type: "outcome"
+        type: "outcome",
+        date: new Date(2020, 10, 3)
       },
 
       3: {
         id: 3,
         value: -50,
         comment: "Some expense",
-        type: "outcome"
+        type: "outcome",
+        date: new Date(2020, 10, 6)
       },
 
       4: {
         id: 4,
         value: 0,
         comment: "Some expense",
-        type: "income"
+        type: "income",
+        date: new Date(2020, 10, 5)
       },
 
       5: {
         id: 5,
         value: 0,
         comment: "Some expense",
-        type: "income"
+        type: "income",
+        date: new Date(2020, 10, 7)
       },
 
       6: {
         id: 6,
         value: 50,
         comment: "Some expense",
-        type: "income"
+        type: "income",
+        date: new Date(2019, 10, 2)
       },
     }
   },
 
   getters: {
 
-    expensesAll: ({ expensesList }) => Object.values(expensesList),
-    expensesIn: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value > 0),
-    expensesOut: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value < 0),
-    expensesWP: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value === 0),
+    expensesAll: ({ expensesList }) => Object.values(expensesList).sort((a,b) => new Date(a.date) - new Date(b.date)),
+    expensesIn: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value > 0).sort((a,b) => new Date(a.date) - new Date(b.date)),
+    expensesOut: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value < 0).sort((a,b) => new Date(a.date) - new Date(b.date)),
+    expensesWP: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value === 0).sort((a,b) => new Date(a.date) - new Date(b.date)),
 
     totalBudget: ({ expensesList }) => Object.values(expensesList).reduce((acc, item) => acc + item.value, 0),
     totalProfit: ({ expensesList }) => Object.values(expensesList).filter((item) => item.value > 0).reduce((acc, item) => acc + item.value, 0),

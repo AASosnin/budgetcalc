@@ -1,13 +1,22 @@
 <template>
   <div class="expenses-wrap">
-    <ElDialog :visible.sync="editDialogVisible" width="40%">
+    <ElDialog :visible.sync="editDialogVisible" width="400px">
       <ElForm :model="editItemForm" :rules="rules" label-position="top">
-        <ElFormItem label="Type Income|Outcome" prop="type">
-          <ElSelect v-model="editItemForm.type" placeholder="Choose type">
-            <ElOption label="INCOME" value="income"></ElOption>
-            <ElOption label="OUTCOME" value="outcome"></ElOption>
-          </ElSelect>
-        </ElFormItem>
+        <ElRow :gutter="20">
+          <ElCol :span="12">
+            <ElFormItem label="Type Income|Outcome" prop="type">
+              <ElSelect v-model="editItemForm.type" placeholder="Choose type">
+                <ElOption label="INCOME" value="income"></ElOption>
+                <ElOption label="OUTCOME" value="outcome"></ElOption>
+              </ElSelect>
+            </ElFormItem>
+          </ElCol>
+          <ElCol :span="12">
+            <ElFormItem label="Date" prop="date">
+              <ElDatePicker type="date" placeholder="Pick a date" v-model="editItemForm.date" style="width: 100%;"></ElDatePicker>
+            </ElFormItem>
+          </ElCol>
+        </ElRow>
         <ElFormItem label="Comment" prop="comment">
           <ElInput v-model="editItemForm.comment"></ElInput>
         </ElFormItem>
@@ -70,11 +79,14 @@
         filterInOut: "all",
         delDialogVisible: false,
         delId: "",
+        // yearNow: 2019,
+        // monthNow: 0,
         editDialogVisible: false,
         editItemForm: {
           type: "",
           comment: "",
-          value: 0
+          value: 0,
+          date: ""
         },
         rules: {
           type: [
@@ -88,14 +100,19 @@
             { type: 'number', message: "Value must be a number", trigger: 'change' },
             { validator: validateValue, trigger: "change" },
           ],
+          date: [
+            {required: true, message: "Please pick date", trigger: 'blur'},
+          ]
         }
       }
     },
     computed: {
       ...mapGetters('expensesStore', ['expensesAll', 'expensesIn', 'expensesOut', 'expensesWP']),
+
       isEmptyExpenses() {
         return Object.keys(this.filteredExpenses).length;
       },
+
       filteredExpenses() {
         if(this.filterInOut === 'all') {
           return this.expensesAll;
@@ -104,8 +121,7 @@
         } else if (this.filterInOut === 'outcome') {
           return this.expensesOut;
         } else return this.expensesWP;
-
-      }
+      },
     },
     methods: {
       ...mapActions('expensesStore', ['deleteItem', 'editItem']),
@@ -126,7 +142,6 @@
         if(this.editItemForm.type === 'outcome') {
           this.editItemForm.value *= -1;
         }
-        console.log(this.editItemForm);
         this.editDialogVisible = true;
       },
 
@@ -138,7 +153,8 @@
         this.editItemForm = {
           type: "",
           comment: "",
-          value: 0
+          value: 0,
+          date: ""
         };
         this.editDialogVisible = false;
       }
@@ -148,8 +164,8 @@
 
 <style scoped>
   .expenses-wrap {
-    max-width: 600px;
-    width: 60%;
-    margin: 0 auto;
+    max-width: 700px;
+    min-width: 500px;
+    margin: 20px;
   }
 </style>

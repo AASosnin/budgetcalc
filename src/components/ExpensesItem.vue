@@ -1,5 +1,6 @@
 <template>
     <div class="expenses-item-wrap">
+        <span class="item-date">{{(new Date(item.date).getDate() || "__") + "." + (new Date(item.date).getMonth() || "__")}}</span>
         <span class="item item-comment">{{item.comment}}</span>
         <span class="item item-value" :class="colorClass">{{item.value}}</span>
         <i :class="iconClass"></i>
@@ -66,14 +67,22 @@
 
     .item-comment {
         margin-right: auto;
+        text-align: left;
     }
 
     .item-value {
-        margin-right: 20px;
+        margin: 0 20px;
+    }
+
+    .item-date {
+        margin: 0 20px 0 0;
+        color: #808080;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-weight: 400;
     }
 
     i {
-        margin: 0 10px 0 0;
+        margin: 0 20px 0 0;
     }
 
     .red {

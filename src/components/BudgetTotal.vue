@@ -49,7 +49,7 @@
 
 <style scoped>
     .budget-total-wrap {
-      padding-top: 25px;
+      margin: 20px;
       font-size: 26px;
     }
     .red {
