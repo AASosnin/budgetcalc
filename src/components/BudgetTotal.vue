@@ -1,9 +1,9 @@
 <template>
   <div class="budget-total-wrap">
     <ElSelect v-model="totalType">
-      <ElOption label="Total BUDGET" value="total"></ElOption>
-      <ElOption label="Total PROFIT" value="income"></ElOption>
-      <ElOption label="Total EXPENSES" value="outcome"></ElOption>
+      <ElOption label="BUDGET" value="total"></ElOption>
+      <ElOption label="PROFIT" value="income"></ElOption>
+      <ElOption label="EXPENSES" value="outcome"></ElOption>
     </ElSelect>
     <p :class="colorClass">{{totalCount.text}}{{totalCount.value}}</p>
   </div>
@@ -13,27 +13,84 @@
   import { mapGetters } from 'vuex'
   export default {
     name: "BudgetTotal",
+    props: {
+      selectedDate: {
+       type: Object,
+       default: () => ({})
+      }
+    },
+
     data: () => ({
       totalType: "total"
     }),
     computed: {
-      ...mapGetters('expensesStore', ['totalBudget', 'totalProfit', 'totalExpenses']),
+      ...mapGetters('expensesStore', [
+        'totalBudget',
+        'totalProfit',
+        'totalExpenses',
+        'totalBudgetYear',
+        'totalProfitYear',
+        'totalExpensesYear',
+        'totalBudgetYearMonth',
+        'totalProfitYearMonth',
+        'totalExpensesYearMonth',
+      ]),
       totalCount() {
-        if (this.totalType === "income") {
-          return {
-            text: "Total PROFIT : ",
-            value: this.totalProfit
+        if (this.selectedDate.selectedYear && (this.selectedDate.selectedMonth || this.selectedDate.selectedMonth === 0)) {
+          switch (this.totalType) {
+            case "income":
+              return {
+                text: "Month PROFIT : ",
+                value: this.totalProfitYearMonth(this.selectedDate)
+              }
+            case "outcome":
+              return {
+                text: "Month EXPENSES : ",
+                value: this.totalExpensesYearMonth(this.selectedDate)
+              }
+            default:
+              return {
+                text: "Month BUDGET : ",
+                value: this.totalBudgetYearMonth(this.selectedDate)
+              }
           }
-        } else if (this.totalType === "outcome") {
-          return {
-            text: "Total EXPENSES : ",
-            value: this.totalExpenses
+        } else if (this.selectedDate.selectedYear) {
+          switch (this.totalType) {
+            case "income":
+              return {
+                text: "Year PROFIT : ",
+                value: this.totalProfitYear(this.selectedDate.selectedYear)
+              }
+            case "outcome":
+              return {
+                text: "Year EXPENSES : ",
+                value: this.totalExpensesYear(this.selectedDate.selectedYear)
+              }
+            default:
+              return {
+                text: "Year BUDGET : ",
+                value: this.totalBudgetYear(this.selectedDate.selectedYear)
+              }
           }
-        } else
-          return {
-            text: "Total BUDGET : ",
-            value: this.totalBudget
+        } else {
+          switch (this.totalType) {
+            case "income":
+              return {
+                text: "Total PROFIT : ",
+                value: this.totalProfit
+              }
+            case "outcome":
+              return {
+                text: "Total EXPENSES : ",
+                value: this.totalExpenses
+              }
+            default:
+              return {
+                text: "Total BUDGET : ",
+                value: this.totalBudget
+              }
           }
+        }
       },
       colorClass() {
         if (this.totalCount.value > 0) {

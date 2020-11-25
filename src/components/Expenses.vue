@@ -37,14 +37,16 @@
         <el-button type="primary" @click="deleteThisItemConfirm">Confirm</el-button>
       </span>
     </ElDialog>
-    <ElCard class="box-card">
-      <template v-if="isEmptyExpenses">
+    <ElCard class="expenses-card">
+      <div class="select-wrap20">
         <ElSelect v-model="filterInOut">
           <ElOption label="ALL" value="all"></ElOption>
           <ElOption label="INCOME" value="income"></ElOption>
           <ElOption label="OUTCOME" value="outcome"></ElOption>
           <ElOption label="WITHOUT PAYMENT" value="without_payment"></ElOption>
         </ElSelect>
+      </div>
+      <template v-if="isEmptyExpenses">
         <ExpensesItem v-for="item in filteredExpenses" :key="item.id" :item="item" @deleteItem="deleteThisItem" @editItem="editThisItem"></ExpensesItem>
       </template>
       <ElAlert v-else
@@ -123,7 +125,13 @@
         'expensesOut',
         'expensesWP',
         'expensesAllYear',
-        'expensesAllYearMonth'
+        'expensesInYear',
+        'expensesOutYear',
+        'expensesWPYear',
+        'expensesAllYearMonth',
+        'expensesInYearMonth',
+        'expensesOutYearMonth',
+        'expensesWPYearMonth',
       ]),
 
       isEmptyExpenses() {
@@ -131,19 +139,40 @@
       },
 
       filteredExpenses() {
-        if (this.selectedDate.selectedYear && this.selectedDate.selectedMonth) {
-          return this.expensesAllYearMonth(this.selectedDate)
-        }
+        if (this.selectedDate.selectedYear && (this.selectedDate.selectedMonth || this.selectedDate.selectedMonth === 0)) {
+          switch (this.filterInOut) {
+            case "income":
+              return this.expensesInYearMonth(this.selectedDate);
+            case "outcome":
+              return this.expensesOutYearMonth(this.selectedDate);
+            case "without_payment":
+              return  this.expensesWPYearMonth(this.selectedDate);
+            default:
+              return this.expensesAllYearMonth(this.selectedDate);
+          }
+        } else
         if (this.selectedDate.selectedYear) {
-          return this.expensesAllYear(this.selectedDate.selectedYear)
+          switch (this.filterInOut) {
+            case "income":
+              return this.expensesInYear(this.selectedDate.selectedYear);
+            case "outcome":
+              return this.expensesOutYear(this.selectedDate.selectedYear);
+            case "without_payment":
+              return  this.expensesWPYear(this.selectedDate.selectedYear);
+            default:
+              return this.expensesAllYear(this.selectedDate.selectedYear);
+          }
         } else {
-          if(this.filterInOut === 'all') {
-            return this.expensesAll;
-          } else if (this.filterInOut === 'income') {
-            return this.expensesIn;
-          } else if (this.filterInOut === 'outcome') {
-            return this.expensesOut;
-          } else return this.expensesWP;
+          switch (this.filterInOut) {
+            case "income":
+              return this.expensesIn;
+            case "outcome":
+              return this.expensesOut;
+            case "without_payment":
+              return  this.expensesWP;
+            default:
+              return this.expensesAll;
+          }
         }
       },
     },
@@ -192,5 +221,12 @@
     width: 60%;
     min-width: 500px;
     margin: 20px;
+  }
+  .select-wrap20 {
+    margin: 20px;
+  }
+  .expenses-card {
+    max-height: 1000px;
+    overflow: auto;
   }
 </style>

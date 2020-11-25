@@ -1,6 +1,6 @@
 <template>
     <div class="expenses-item-wrap">
-        <span class="item-date">{{(new Date(item.date).getDate() || "__") + "." + (new Date(item.date).getMonth() || "__")}}</span>
+        <span class="item-date">{{(new Date(item.date).getDate() || "__") + "." + (new Date(item.date).getMonth() + 1 || "__")}}</span>
         <span class="item item-comment">{{item.comment}}</span>
         <span class="item item-value" :class="colorClass">{{item.value}}</span>
         <i :class="iconClass"></i>

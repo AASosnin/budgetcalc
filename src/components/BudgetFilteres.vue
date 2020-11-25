@@ -1,8 +1,8 @@
 <template>
   <ElCard class="budget-filteres-card">
-    <BudgetTotal />
+    <BudgetTotal :selectedDate="selectedDate"/>
     <div class="select-wrapper">
-      <ElSelect v-model.number="selectedYear" clearable placeholder="Select YEAR" @change="onSelectYear">
+      <ElSelect v-model.number="selectedDate.selectedYear" clearable placeholder="Select YEAR" @change="onSelectYear">
         <ElOption v-for="item in yearsArray"
                   :key="item.value"
                   :label="item.label"
@@ -11,14 +11,14 @@
       </ElSelect>
     </div>
     <div class="select-wrapper">
-      <ElSelect v-if="this.selectedYear" v-model.number="selectedMonth" clearable placeholder="Select MONTH" @change="onSelectMonth">
+      <ElSelect v-if="selectedDate.selectedYear" v-model.number="selectedDate.selectedMonth" clearable placeholder="Select MONTH" @change="onSelectMonth">
         <ElOption v-for="item in monthesArray"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
         </ElOption>
       </ElSelect>
-      <ElSelect v-else v-model.number="selectedMonth" disabled placeholder="Select MONTH"></ElSelect>
+      <ElSelect v-else v-model.number="selectedDate.selectedMonth" disabled placeholder="Select MONTH"></ElSelect>
     </div>
   </ElCard>
 </template>
@@ -31,8 +31,10 @@
     components: {BudgetTotal},
     data() {
       return {
-        selectedYear: "",
-        selectedMonth: "",
+        selectedDate: {
+          selectedYear: "",
+          selectedMonth: "",
+        },
         yearsArray: [
           {
             label: "2020",
@@ -174,10 +176,10 @@
 
     methods: {
       onSelectMonth() {
-        bus.$emit("onSelectMonth", this.selectedMonth);
+        bus.$emit("onSelectMonth", this.selectedDate.selectedMonth);
       },
       onSelectYear() {
-        bus.$emit("onSelectYear", this.selectedYear);
+        bus.$emit("onSelectYear", this.selectedDate.selectedYear);
       }
     }
   }
