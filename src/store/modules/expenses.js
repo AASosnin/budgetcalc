@@ -5,53 +5,53 @@ const expensesStore = {
 
   state: {
     expensesList: {
-      1: {
-        id: 1,
-        value: 100,
-        comment: "Some earnings",
-        type: "income",
-        date: new Date(2020, 10, 3)
-      },
-
-      2: {
-        id: 2,
-        value: -50,
-        comment: "Some expense",
-        type: "outcome",
-        date: new Date(2021, 11, 3)
-      },
-
-      3: {
-        id: 3,
-        value: -50,
-        comment: "Some expense",
-        type: "outcome",
-        date: new Date(2021, 10, 6)
-      },
-
-      4: {
-        id: 4,
-        value: 0,
-        comment: "Some expense",
-        type: "income",
-        date: new Date(2020, 10, 5)
-      },
-
-      5: {
-        id: 5,
-        value: 0,
-        comment: "Some expense",
-        type: "income",
-        date: new Date(2020, 10, 7)
-      },
-
-      6: {
-        id: 6,
-        value: 50,
-        comment: "Some expense",
-        type: "income",
-        date: new Date(2021, 10, 2)
-      },
+      // 1: {
+      //   id: 1,
+      //   value: 100,
+      //   comment: "Some earnings",
+      //   type: "income",
+      //   date: new Date(2020, 10, 3)
+      // },
+      //
+      // 2: {
+      //   id: 2,
+      //   value: -50,
+      //   comment: "Some expense",
+      //   type: "outcome",
+      //   date: new Date(2021, 11, 3)
+      // },
+      //
+      // 3: {
+      //   id: 3,
+      //   value: -50,
+      //   comment: "Some expense",
+      //   type: "outcome",
+      //   date: new Date(2021, 10, 6)
+      // },
+      //
+      // 4: {
+      //   id: 4,
+      //   value: 0,
+      //   comment: "Some expense",
+      //   type: "income",
+      //   date: new Date(2020, 10, 5)
+      // },
+      //
+      // 5: {
+      //   id: 5,
+      //   value: 0,
+      //   comment: "Some expense",
+      //   type: "income",
+      //   date: new Date(2020, 10, 7)
+      // },
+      //
+      // 6: {
+      //   id: 6,
+      //   value: 50,
+      //   comment: "Some expense",
+      //   type: "income",
+      //   date: new Date(2021, 10, 2)
+      // },
     }
   },
 

@@ -1,27 +1,13 @@
 <template>
   <div id="app">
-    <div class="expenses-row">
-      <div class="expenses-col">
-        <InputExpenses></InputExpenses>
-      </div>
-      <div class="expenses-col">
-        <BudgetFilteres />
-      </div>
-    </div>
-    <div class="expenses-row">
-      <Expenses></Expenses>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Expenses from "./components/Expenses";
-import InputExpenses from "./components/InputExpenses";
-import BudgetFilteres from "./components/BudgetFilteres";
 
 export default {
   name: 'App',
-  components: {BudgetFilteres, InputExpenses, Expenses},
 }
 </script>
 
@@ -32,12 +18,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
-}
-
-.expenses-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  margin-top: 20px;
 }
 </style>
