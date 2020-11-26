@@ -1,6 +1,6 @@
 <template>
   <ElCard class="form-expenses-wrap">
-    <ExpensesForm @onExpensesFormSubmit="addNewItem"></ExpensesForm>
+    <ExpensesForm @onExpensesFormSubmit="addNewItem" />
   </ElCard>
 </template>
 

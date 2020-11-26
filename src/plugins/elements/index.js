@@ -15,7 +15,8 @@ import {
   Icon,
   Col,
   Row,
-  DatePicker
+  DatePicker,
+  Popconfirm
 } from 'element-ui';
 
 const elements = [
@@ -31,7 +32,8 @@ const elements = [
   Icon,
   Col,
   Row,
-  DatePicker
+  DatePicker,
+  Popconfirm
 ];
 
 locale.use(lang);

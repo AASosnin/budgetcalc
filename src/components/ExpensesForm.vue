@@ -21,8 +21,8 @@
     <ElFormItem label="Value" prop="value">
       <ElInput v-model.number="formData.value"></ElInput>
     </ElFormItem>
-    <ElButton @click="cancelSubmit('inputForm')">Cancel</ElButton>
-    <ElButton type="primary" @click="onSubmit('inputForm')">Ok</ElButton>
+      <ElButton @click="cancelSubmit('inputForm')">Cancel</ElButton>
+      <ElButton type="primary" @click="onSubmit('inputForm')">Ok</ElButton>
   </ElForm>
 </template>
 
@@ -30,9 +30,16 @@
   export default {
     name: "FormExpenses",
 
+    props: {
+      formDataProps: {
+        type: Object,
+        default: () => ({})
+      }
+    },
+
     data() {
 
-      var validateValue = (rule, value, callback) => {
+      const validateValue = (rule, value, callback) => {
         if (value < 0) {
           callback(new Error('Please input number without minus'));
         } else {

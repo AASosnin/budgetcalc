@@ -4,8 +4,16 @@
         <span class="item item-comment">{{item.comment}}</span>
         <span class="item item-value" :class="colorClass">{{item.value}}</span>
         <i :class="iconClass"></i>
-        <ElButton type="primary" icon="el-icon-edit" circle @click="editItem(item)"></ElButton>
-        <ElButton type="danger" icon="el-icon-delete" circle @click="deleteItem(item.id)"></ElButton>
+        <ElButton class="expenses-edit-button" type="primary" icon="el-icon-edit" circle @click="editItem(item)"></ElButton>
+        <ElPopconfirm
+          placement="top"
+          title="Are you sure?"
+          @confirm="deleteItem(item.id)"
+          confirm-button-text='OK'
+          cancel-button-text='Cancel'
+        >
+            <ElButton slot="reference" type="danger" icon="el-icon-delete" circle></ElButton>
+        </ElPopconfirm>
     </div>
 </template>
 
@@ -16,6 +24,11 @@
             item: {
                 type: Object,
                 default: () => ({}),
+            }
+        },
+        data() {
+            return {
+                visible: false
             }
         },
         computed: {
@@ -42,6 +55,7 @@
         methods: {
             deleteItem(id) {
                 this.$emit('deleteItem', id);
+                this.visible = false;
             },
             editItem(item) {
                 this.$emit('editItem', item);
@@ -83,6 +97,10 @@
 
     i {
         margin: 0 20px 0 0;
+    }
+
+    .expenses-edit-button {
+        margin: 0 10px 0 0;
     }
 
     .red {

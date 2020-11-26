@@ -27,16 +27,7 @@
           <ElButton type="primary" @click="editThisItemConfirm">Confirm</ElButton>
       </ElForm>
     </ElDialog>
-    <ElDialog
-      title="Warning!"
-      :visible.sync="delDialogVisible"
-      width="30%">
-          <span>Are you sure?<br>If you delete this item, you can no longer restore it. </span>
-          <span slot="footer" class="dialog-footer">
-        <el-button @click="delDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="deleteThisItemConfirm">Confirm</el-button>
-      </span>
-    </ElDialog>
+
     <ElCard class="expenses-card">
       <div class="select-wrap20">
         <ElSelect v-model="filterInOut">
@@ -82,7 +73,6 @@
       return {
         filterInOut: "all",
         delDialogVisible: false,
-        delId: "",
         selectedDate: {
           selectedYear: "",
           selectedMonth: "",
@@ -181,14 +171,7 @@
       ...mapActions('expensesStore', ['deleteItem', 'editItem']),
 
       deleteThisItem(id) {
-        this.delId = id;
-        this.delDialogVisible = true;
-      },
-
-      deleteThisItemConfirm() {
-        this.deleteItem(this.delId);
-        this.delId = "";
-        this.delDialogVisible = false;
+        this.deleteItem(id);
       },
 
       editThisItem(item) {
