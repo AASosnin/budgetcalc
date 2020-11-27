@@ -17,4 +17,11 @@
     max-height: 40vh;
     max-width: 80vw;
   }
+  .start-page {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
